@@ -328,7 +328,7 @@ MonoBehaviour:
   _leftBound: -11
   _rightBound: 11
   _fireRate: 0.1
-  _playerHealth: 3
+  _playerHealth: 11
   _laserPrefab: {fileID: 6002726802514837704, guid: 75f7305b0ba30435798c2e05bfe3f16c, type: 3}
   _tripleShotPrefab: {fileID: 6358990391761443901, guid: a76c85e5b45eb4f69b13b83a0147bbe1, type: 3}
 --- !u!212 &910381036
@@ -549,7 +549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 8122872817922845414, guid: da6fb1fa8328d4f5d89fc44a99fedffc, type: 3}
   _enemyPool: {fileID: 2118786743}
-  _PowerUpPrefab: {fileID: 8393208289200484434, guid: 236b9a87f4e644e4f9a90ca7eb469a32, type: 3}
+  _PowerUpPrefabs:
+  - {fileID: 8393208289200484434, guid: 236b9a87f4e644e4f9a90ca7eb469a32, type: 3}
+  - {fileID: 8032509458812057980, guid: 05543c06c240248d3b7d0da8fb99f8e1, type: 3}
   _powerUpPool: {fileID: 1449415416}
 --- !u!4 &1147257834
 Transform:

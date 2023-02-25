@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject _enemyPrefab;
     [SerializeField] GameObject _enemyPool;
-    [SerializeField] GameObject _PowerUpPrefab;
+    [SerializeField] GameObject[] _PowerUpPrefabs;
     [SerializeField] GameObject _powerUpPool;
 
     bool _isDead = false;
@@ -32,7 +32,8 @@ public class SpawnManager : MonoBehaviour
         while (_isDead != true)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 9, 0);
-            GameObject newPoweUp = Instantiate(_PowerUpPrefab, posToSpawn, Quaternion.identity);
+            int randomPowerUpPrefabIndex = Random.Range(0, 2);
+            GameObject newPoweUp = Instantiate(_PowerUpPrefabs[randomPowerUpPrefabIndex], posToSpawn, Quaternion.identity);
             newPoweUp.transform.parent = _powerUpPool.transform;
             yield return new WaitForSeconds(7f);
         }

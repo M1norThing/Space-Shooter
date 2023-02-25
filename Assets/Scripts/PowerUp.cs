@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] float powerUpFallSpeed = 3f;
+    [SerializeField] int powerUpID;
 
     void Update()
     {
@@ -22,12 +23,14 @@ public class PowerUp : MonoBehaviour
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {
-                player.TripleShotIsActive();
-            }
-            else
-            {
-                Debug.LogError("Player is NULL");
-            }
+                switch (powerUpID)
+                {
+                    case 0: player.TripleShotIsActive(); break;
+                    case 1: player.SpeedBoostIsActive(); break;
+                    case 2: Debug.Log("Shield Boost"); break;
+                    default: Debug.Log("Defaul value"); break;
+                }
+            }  
             Destroy(this.gameObject);
         }
     }

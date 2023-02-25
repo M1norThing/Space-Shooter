@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float _playerSpeed = 3.5f;
+    [SerializeField] float _playerSpeed = 8f;
+    float _playerSpeedMultiplayer = 2f;
     [SerializeField] float _upperBound = 0f;
     [SerializeField] float _bottomBound = -3.8f;
     [SerializeField] float _leftBound = -11f;
@@ -19,8 +20,10 @@ public class Player : MonoBehaviour
 
     float _canFireAfter = -1f;
     Vector3 laserPositionOffset = new Vector3(0, 1.05f, 0);
-    bool _isTripleShotActive = false;
 
+    bool _isTripleShotActive = false;
+    bool _isSpeedBoostActive = false;
+    
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -39,6 +42,7 @@ public class Player : MonoBehaviour
         { 
             FireLaser();
         }
+        
     }
 
     private void CalculateMovement()
@@ -95,5 +99,19 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _isTripleShotActive = false;
+    }
+
+    public void SpeedBoostIsActive()
+    {
+        _isSpeedBoostActive = true;
+        _playerSpeed *= _playerSpeedMultiplayer;
+        StartCoroutine(SpeedBoostPowerUpRoutine());
+    }
+
+    IEnumerator SpeedBoostPowerUpRoutine()
+    {
+        yield return new WaitForSeconds(7f);
+        _isSpeedBoostActive = false;
+        _playerSpeed /= _playerSpeedMultiplayer;
     }
 }
