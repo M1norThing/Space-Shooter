@@ -6,12 +6,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] float _speed = 4f;
 
-
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
@@ -24,7 +18,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Laser"))
         {

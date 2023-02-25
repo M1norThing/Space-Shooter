@@ -4,33 +4,38 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float _speed = 3.5f;
-
+    [SerializeField] float _playerSpeed = 3.5f;
     [SerializeField] float _upperBound = 0f;
     [SerializeField] float _bottomBound = -3.8f;
     [SerializeField] float _leftBound = -11f;
     [SerializeField] float _rightBound = 11f;
-
-    [SerializeField] GameObject _laserPrefab;
-
-    [SerializeField] private float _fireRate = 0.5f;
-
+    [SerializeField] float _fireRate = 0.5f;
     [SerializeField] int _playerHealth = 3;
 
-    private float _canFire = -1f;
+    [SerializeField] GameObject _laserPrefab;
+    [SerializeField] GameObject _tripleShotPrefab;
 
-    Vector3 laserPositionOffset = new Vector3(0, 0.8f, 0);
+    SpawnManager spawnManager;
+
+    float _canFireAfter = -1f;
+    Vector3 laserPositionOffset = new Vector3(0, 1.05f, 0);
+    bool _isTripleShotActive = false;
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (spawnManager == null)
+        {
+            Debug.LogError("SpawnManager is NULL");
+        }
     }
 
     void Update()
     {
         CalculateMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFireAfter)
         { 
             FireLaser();
         }
@@ -42,7 +47,7 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizpntalInput, verticalInput, 0);
-        transform.Translate(direction * _speed * Time.deltaTime);
+        transform.Translate(direction * _playerSpeed * Time.deltaTime);
 
         // limiting Y position between upper and bottom bounds (instead of an if statement)
         transform.position = new Vector3(transform.position.x,Mathf.Clamp(transform.position.y, _bottomBound, _upperBound), 0);
@@ -59,8 +64,15 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
-        _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + laserPositionOffset, Quaternion.identity);
+        _canFireAfter = Time.time + _fireRate;
+        if (_isTripleShotActive == true)
+        {
+            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laserPrefab, transform.position + laserPositionOffset, Quaternion.identity);
+        }
     }
 
     public void DamagePlayer()
@@ -68,7 +80,20 @@ public class Player : MonoBehaviour
         _playerHealth--;
         if (_playerHealth < 1)
         {
+            spawnManager.OnTriggerDeth();
             Destroy(this.gameObject);
         }
+    }
+
+    public void TripleShotIsActive()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerUpRoutine());
+    }
+
+    IEnumerator TripleShotPowerUpRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isTripleShotActive = false;
     }
 }
