@@ -27,7 +27,7 @@ public class PowerUp : MonoBehaviour
                 {
                     case 0: player.TripleShotIsActive(); break;
                     case 1: player.SpeedBoostIsActive(); break;
-                    case 2: Debug.Log("Shield Boost"); break;
+                    case 2: player.ShieldPowerIsActive(); break;
                     default: Debug.Log("Defaul value"); break;
                 }
             }  

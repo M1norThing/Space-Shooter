@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         while (_isDead != true)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 9, 0);
-            int randomPowerUpPrefabIndex = Random.Range(0, 2);
+            int randomPowerUpPrefabIndex = Random.Range(0, 3);
             GameObject newPoweUp = Instantiate(_PowerUpPrefabs[randomPowerUpPrefabIndex], posToSpawn, Quaternion.identity);
             newPoweUp.transform.parent = _powerUpPool.transform;
             yield return new WaitForSeconds(7f);
