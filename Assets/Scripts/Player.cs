@@ -5,19 +5,21 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float _playerSpeed = 8f;
-    float _playerSpeedMultiplayer = 2f;
+    [SerializeField] float _playerSpeedMultiplayer = 2f;
     [SerializeField] float _upperBound = 0f;
     [SerializeField] float _bottomBound = -3.8f;
     [SerializeField] float _leftBound = -11f;
     [SerializeField] float _rightBound = 11f;
     [SerializeField] float _fireRate = 0.5f;
     [SerializeField] int _playerHealth = 3;
+    [SerializeField] public int _playerScore;
 
     [SerializeField] GameObject _laserPrefab;
     [SerializeField] GameObject _tripleShotPrefab;
     [SerializeField] GameObject _shieldPowerUpPrefab;
 
     SpawnManager spawnManager;
+    UIManager _uIManager;
 
     float _canFireAfter = -1f;
     Vector3 laserPositionOffset = new Vector3(0, 1.05f, 0);
@@ -28,11 +30,16 @@ public class Player : MonoBehaviour
     
     void Start()
     {
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         transform.position = new Vector3(0, 0, 0);
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (spawnManager == null)
         {
-            Debug.LogError("SpawnManager is NULL");
+            Debug.LogError("SpawnManager is NULL.");
+        }
+        if (_uIManager == null)
+        {
+            Debug.LogError("UIManager is NULL.");
         }
     }
 
@@ -89,10 +96,10 @@ public class Player : MonoBehaviour
             return;
         }
 
-
         _playerHealth--;
+        _uIManager.UpdateLivesImage(_playerHealth);
 
-        if (_playerHealth < 1)
+        if (_playerHealth == 0)
         {
             spawnManager.OnTriggerDeth();
             Destroy(this.gameObject);
@@ -140,5 +147,10 @@ public class Player : MonoBehaviour
         _isShieldActive = false;
     }
 
+    public void ManageScore(int points)
+    {
+        _playerScore += points;
+        _uIManager.UpadateScore(_playerScore);
+    }
 
 }
