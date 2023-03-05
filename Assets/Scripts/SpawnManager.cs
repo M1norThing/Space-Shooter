@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
 
     bool _isDead = false;
 
-    void Start()
+    public void StartSpawning()
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerUp());
@@ -19,6 +19,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemyRoutine()
     {
+        yield return new WaitForSeconds(2f);
         while (_isDead != true)
         {
             Vector3 posTospawn = new Vector3(Random.Range(-8f, 9f), 9, 0);
@@ -29,6 +30,7 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator SpawnPowerUp()
     {
+        yield return new WaitForSeconds(2f);
         while (_isDead != true)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 9, 0);

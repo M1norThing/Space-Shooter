@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject _laserPrefab;
     [SerializeField] GameObject _tripleShotPrefab;
     [SerializeField] GameObject _shieldPowerUpPrefab;
+    [SerializeField] GameObject _rightEngineDmg;
+    [SerializeField] GameObject _leftEngineDmg;
 
     SpawnManager spawnManager;
     UIManager _uIManager;
@@ -98,6 +100,15 @@ public class Player : MonoBehaviour
 
         _playerHealth--;
         _uIManager.UpdateLivesImage(_playerHealth);
+
+        if (_playerHealth == 2)
+        {
+            _leftEngineDmg.gameObject.SetActive(true);
+        }
+        else if (_playerHealth == 1)
+        {
+            _rightEngineDmg.gameObject.SetActive(true);
+        }
 
         if (_playerHealth == 0)
         {

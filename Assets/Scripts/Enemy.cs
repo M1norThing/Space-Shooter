@@ -9,10 +9,16 @@ public class Enemy : MonoBehaviour
     int points = 10;
 
     Player _player;
+    Animator _animator;
 
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _animator = gameObject.GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogError(" Animator is NULL");
+        }
     }
 
     void Update()
@@ -36,7 +42,9 @@ public class Enemy : MonoBehaviour
             {
                 _player.ManageScore(points);
             }
-            Destroy(this.gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            Destroy(this.gameObject, 2.8f);
         }
         if (other.CompareTag("Player"))
         {
@@ -44,7 +52,9 @@ public class Enemy : MonoBehaviour
             {
                 _player.DamagePlayer();
             }
-            Destroy(this.gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            Destroy(this.gameObject, 2.8f);
         }
     }
 }

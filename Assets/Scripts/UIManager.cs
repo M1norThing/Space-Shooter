@@ -14,8 +14,6 @@ public class UIManager : MonoBehaviour
 
     GameManager _gameManager;
 
-    float timer = 0.5f;
-
     int scoreValue = 0;
 
     void Start()
