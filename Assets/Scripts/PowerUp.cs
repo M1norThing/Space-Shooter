@@ -6,6 +6,9 @@ public class PowerUp : MonoBehaviour
 {
     [SerializeField] float powerUpFallSpeed = 3f;
     [SerializeField] int powerUpID;
+    [SerializeField] AudioClip _audioCLip;
+
+   
 
     void Update()
     {
@@ -21,6 +24,9 @@ public class PowerUp : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Player player = collision.GetComponent<Player>();
+
+            AudioSource.PlayClipAtPoint(_audioCLip, transform.position);
+
             if (player != null)
             {
                 switch (powerUpID)
@@ -30,7 +36,7 @@ public class PowerUp : MonoBehaviour
                     case 2: player.ShieldPowerIsActive(); break;
                     default: Debug.Log("Defaul value"); break;
                 }
-            }  
+            }
             Destroy(this.gameObject);
         }
     }

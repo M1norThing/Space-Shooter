@@ -155,6 +155,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6610051625384790772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,3 +170,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpFallSpeed: 3
   powerUpID: 2
+  _audioCLip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}

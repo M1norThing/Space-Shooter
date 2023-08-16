@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpFallSpeed: 3
   powerUpID: 0
+  _audioCLip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!95 &3734533910932643332
 Animator:
   serializedVersion: 5
@@ -169,3 +170,4 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
